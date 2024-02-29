@@ -28,76 +28,105 @@ import javax.persistence.Id;
 @Entity // <1>
 public class Employee {
 
-	private @Id @GeneratedValue Long id; // <2>
-	private String firstName;
-	private String lastName;
-	private String description;
+    private @Id
+    @GeneratedValue Long id; // <2>
+    private String firstName;
+    private String lastName;
+    private String description;
 
-	private Employee() {}
+    private int jobYears;
 
-	public Employee(String firstName, String lastName, String description) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.description = description;
-	}
+    public Employee() {
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Employee employee = (Employee) o;
-		return Objects.equals(id, employee.id) &&
-			Objects.equals(firstName, employee.firstName) &&
-			Objects.equals(lastName, employee.lastName) &&
-			Objects.equals(description, employee.description);
-	}
+    public Employee(String firstName, String lastName, String description, int jobYears) throws InstantiationException {
+        if (!validateConstructorArguments(firstName, lastName, description, jobYears))
+            throw new InstantiationException("Invalid Constructor Arguments");
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.description = description;
+        this.jobYears = jobYears;
+    }
 
-	@Override
-	public int hashCode() {
+    private boolean validateConstructorArguments(String firstName, String lastName, String description, int jobYears) {
+        if (firstName == null || firstName.isEmpty())
+            return false;
+        if (lastName == null || lastName.isEmpty())
+            return false;
+        if (description == null || description.isEmpty())
+            return false;
+        if (jobYears < 0)
+            return false;
+        return true;
+    }
 
-		return Objects.hash(id, firstName, lastName, description);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id) &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(lastName, employee.lastName) &&
+                Objects.equals(description, employee.description) &&
+                Objects.equals(jobYears, employee.jobYears);
+    }
 
-	public Long getId() {
-		return id;
-	}
+    @Override
+    public int hashCode() {
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+        return Objects.hash(id, firstName, lastName, description, jobYears);
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	@Override
-	public String toString() {
-		return "Employee{" +
-			"id=" + id +
-			", firstName='" + firstName + '\'' +
-			", lastName='" + lastName + '\'' +
-			", description='" + description + '\'' +
-			'}';
-	}
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getJobYears() {
+        return jobYears;
+    }
+
+    public void setJobYears(int jobYears) {
+        this.jobYears = jobYears;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", description='" + description + '\'' +
+                ", jobYears='" + jobYears + '\'' +
+                '}';
+    }
 }
 // end::code[]
