@@ -153,7 +153,7 @@ to the following examples:
 
 #### Step 4: Debug the server and client parts of the solution
 - To debug the server and client parts of the solution and assure data consistency:
-    1. First we run the application using the command `./mvnw spring-boot:run command` in the root of
+    1. First we run the application using the command `./mvnw spring-boot:run` command in the root of
        the [basic project](tut-react-and-spring-data-rest/basic) using a bash terminal to start the server
     2. Then we open the browser with `localhost:8080` to start the client
     3. The new feature should be included in a new column of the table shown
@@ -167,5 +167,9 @@ to the following examples:
 ### Part 2
 
 ## Analysis of the Alternative Solution
+An alternative solution for version control that is not based on Git Hub is Apache Subversion (SVN).
+Git is a distributed version control system where every user has a complete copy of the repository, allowing them to work independently and offline. On the opposite, SVN is centralized,
+meaning there is a single central repository that stores all versions of the project files.
+
 
 ## Implementation of the Alternative Solution
