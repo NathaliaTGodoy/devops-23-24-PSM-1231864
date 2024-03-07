@@ -105,4 +105,14 @@ class EmployeeTest {
         assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
+    @Test
+    void newEmployeeWithInvalidEmailFormat() {
+        String firstName = "Frodo";
+        String lastName = "Baggins";
+        String description = "Ring Bearer";
+        int jobYears = 2;
+        String email = "frodo.gmail.com";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
+    }
+
 }
