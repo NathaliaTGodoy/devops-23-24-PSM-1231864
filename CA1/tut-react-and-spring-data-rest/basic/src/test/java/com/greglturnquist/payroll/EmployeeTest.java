@@ -11,7 +11,8 @@ class EmployeeTest {
         String lastName = "Baggins";
         String description = "Ring Bearer";
         int jobYears = 0;
-        assertDoesNotThrow(() -> new Employee(firstName, lastName, description, jobYears));
+        String email = "frodo@gmail.com";
+        assertDoesNotThrow(() -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
     @Test
@@ -20,7 +21,8 @@ class EmployeeTest {
         String lastName = "Baggins";
         String description = "Ring Bearer";
         int jobYears = 2;
-        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears));
+        String email = "frodo@gmail.com";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
     @Test
@@ -29,7 +31,8 @@ class EmployeeTest {
         String lastName = "Baggins";
         String description = "Ring Bearer";
         int jobYears = 2;
-        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears));
+        String email = "frodo@gmail.com";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
     @Test
@@ -38,7 +41,8 @@ class EmployeeTest {
         String lastName = null;
         String description = "Ring Bearer";
         int jobYears = 2;
-        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears));
+        String email = "frodo@gmail.com";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
     @Test
@@ -47,7 +51,8 @@ class EmployeeTest {
         String lastName = "";
         String description = "Ring Bearer";
         int jobYears = 2;
-        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears));
+        String email = "frodo@gmail.com";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
     @Test
@@ -56,7 +61,8 @@ class EmployeeTest {
         String lastName = "Baggins";
         String description = null;
         int jobYears = 2;
-        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears));
+        String email = "frodo@gmail.com";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
     @Test
@@ -65,7 +71,8 @@ class EmployeeTest {
         String lastName = "Baggins";
         String description = "";
         int jobYears = 2;
-        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears));
+        String email = "frodo@gmail.com";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
     @Test
@@ -74,7 +81,28 @@ class EmployeeTest {
         String lastName = "Baggins";
         String description = "Ring Bearer";
         int jobYears = -2;
-        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears));
+        String email = "frodo@gmail.com";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
+    }
+
+    @Test
+    void newEmployeeWithInvalidNullEmail() {
+        String firstName = "Frodo";
+        String lastName = "Baggins";
+        String description = "Ring Bearer";
+        int jobYears = 2;
+        String email = null;
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
+    }
+
+    @Test
+    void newEmployeeWithInvalidEmptyEmail() {
+        String firstName = "Frodo";
+        String lastName = "Baggins";
+        String description = "Ring Bearer";
+        int jobYears = 2;
+        String email = "";
+        assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
     }
 
 }
