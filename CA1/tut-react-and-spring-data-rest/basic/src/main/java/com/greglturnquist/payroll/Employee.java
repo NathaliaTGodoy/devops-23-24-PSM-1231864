@@ -59,7 +59,7 @@ public class Employee {
             return false;
         if (jobYears < 0)
             return false;
-        if (email == null || email.isEmpty())
+        if (email == null || email.isEmpty() || !email.contains("@"))
             return false;
         return true;
     }
@@ -142,5 +142,6 @@ public class Employee {
                 ", email='" + email + '\'' +
                 '}';
     }
+
 }
 // end::code[]
