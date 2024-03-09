@@ -167,9 +167,22 @@ to the following examples:
 ### Part 2
 
 ## Analysis of the Alternative Solution
-An alternative solution for version control that is not based on Git Hub is Apache Subversion (SVN).
-Git is a distributed version control system where every user has a complete copy of the repository, allowing them to work independently and offline. On the opposite, SVN is centralized,
-meaning there is a single central repository that stores all versions of the project files.
+An alternative solution for version control that is not based on Git Hub is Mercurial.
+In the same way as Git, Mercurial is a distributed version control system, where every user has a complete copy of the repository, allowing them to work independently and offline,
+having the ability to commit changes locally before pushing them to central server.
+Mercurial supports branching and merging, similarly to Git. However, Mercurial's branching model is simpler and more consistent compared to Git,
+making it easier to understand and use. It also has built-it tools for managing and visualizing branches, simplifying this process.
+Mercurial is known for its performance, especially for operations such as committing changes, branching, and merging. It is designed to be fast and efficient, even with large repositories and history.
 
 
 ## Implementation of the Alternative Solution
+Having all this in consideration, the implementation of the alternative solution with Mercurial, would follow a similar approach with some minor adaptations:
+- In the first place, it would be necessary to set up a central Mercurial repository to store the project file and track all the changes.
+In order to create a local copy, it would be necessary to clone the repository;
+- After following the steps that were described in the Part 1, which means making changes in the local copy of the repository and commit them locally, to share the changes in the central repository,
+it is necessary to push the commit;
+- To implement the Part 2 of this assignment using branches the process is also very similar to Git, being more straightforward and intuitive. First, a branch is created locally, after the changes 
+in the `email-field` branch, it is possible to merge them back into the main/master branch when ready. Mercurial provides built-in tools for managing branches and resolving conflicts. The same process with
+`fix-email-field` branch would be made.
+- Mercurial also provides mechanisms for sharing changes between repositories efficiently, such as the push and pull commands. In addition, it provides merge tool and a resolve command.
+It is possible to use these tools to resolve conflicts and ensure that changes are integrated smoothly in to the main/master branch.
