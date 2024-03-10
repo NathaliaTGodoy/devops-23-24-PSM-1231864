@@ -10,6 +10,16 @@
       - [Step 3: Adding a validation of the attributes in the constructor of the Employee class and unit tests](#step-3-adding-a-validation-of-the-attributes-in-the-constructor-of-the-employee-class-and-unit-tests)
       - [Step 4: Debug the server and client parts of the solution](#step-4-debug-the-server-and-client-parts-of-the-solution)
     - [Part 2](#part-2)
+      - [Step 1: Creating a new branch to develop a new feature](#step-1-creating-a-new-branch-to-develop-a-new-feature)
+      - [Step 2: Adding a new field to the Employee class](#step-2-adding-a-new-field-to-the-employee-class)
+      - [Step 3: Supporting the addition of a new field to the Employee class](#step-3-supporting-the-addition-of-a-new-field-to-the-employee-class)
+      - [Step 4: Adding a validation of the attributes in the constructor of the Employee class and unit tests](#step-4-adding-a-validation-of-the-attributes-in-the-constructor-of-the-employee-class-and-unit-tests)
+      - [Step 5: Debug the server and client parts of the solution](#step-5-debug-the-server-and-client-parts-of-the-solution)
+      - [Step 6: Merge the created branch along with the master branch](#step-6-merge-the-created-branch-along-with-the-master-branch)
+      - [Step 7: Creating a new branch for fixing bugs](#step-7-creating-a-new-branch-for-fixing-bugs)
+      - [Step 8: Implementing a new rule for validation of the new feature in the Employee class](#step-8-implementing-a-new-rule-for-validation-of-the-new-feature-in-the-employee-class)
+      - [Step 9: Debug the server and client parts of the solution](#step-9-debug-the-server-and-client-parts-of-the-solution)
+      - [Step 10: Merge the created branch along with the master branch](#step-10-merge-the-created-branch-along-with-the-master-branch)
 - [Analysis of the Alternative Solution](#analysis-of-the-alternative-solution)
 - [Implementation of the Alternative Solution](#implementation-of-the-alternative-solution)
 
@@ -125,7 +135,7 @@ done in the master branch.
     ```
 
 - To add unit tests for the creation of Employees it was considered a success case (when the Employee object was
-created succesfully)
+created successfully)
 and failure cases (when the parameter of the construction was null or empty and an exception was throw), according
 to the following examples:
     1. Success case:
@@ -165,6 +175,53 @@ to the following examples:
     ```
 
 ### Part 2
+
+#### Step 1: Creating a new branch to develop a new feature
+- Using the commands of Git (`git branch email-field` | `git checkout email-field`), a new branch called `email-field` should be created
+
+#### Step 2: Adding a new field to the Employee class
+- Following the same instructions described in the [Step 1: Adding a new field to the Employee class](#step-1-adding-a-new-field-to-the-employee-class) of [Part 1](#part-1), a new field to record the email of the employees in the company should be implemented.
+
+#### Step 3: Supporting the addition of a new field to the Employee class
+- Following the same instructions described in the [Step 2: Supporting the addition of a new field to the Employee class](#step-2-supporting-the-addition-of-a-new-field-to-the-employee-class) of [Part 1](#part-1), the support of the addition of the new field (`String email`) should be
+achieved by updating the other classes that are related
+
+#### Step 4: Adding a validation of the attributes in the constructor of the Employee class and unit tests
+- Following the same instructions described in the [Step 3: Adding a validation of the attributes in the constructor of the Employee class and unit tests](#step-3-adding-a-validation-of-the-attributes-in-the-constructor-of-the-employee-class-and-unit-tests) of [Part 1](#part-1), a validation of the implemented attribute (`String email`) 
+should be achieved by updating the constructor of the [Employee object](tut-react-and-spring-data-rest/basic/src/main/java/com/greglturnquist/payroll/Employee.java) and creating unit tests
+
+#### Step 5: Debug the server and client parts of the solution
+- Following the same instructions described in the [Step 4: Debug the server and client parts of the solution](#step-4-debug-the-server-and-client-parts-of-the-solution) of [Part 1](#part-1), a debug of the server and client parts of the solution should be made to guarantee data consistency
+
+#### Step 6: Merge the created branch along with the master branch
+- Using the commands of Git, after committing the changes implemented in the created branch, a merge need to be made with the master branch
+  1. `git push origin email-field`
+  2. `git checkout master`
+  3. `git merge --no-ff email-field`
+  4. `git push`
+
+#### Step 7: Creating a new branch for fixing bugs
+- Using the same instructions described in the [Step 1: Creating a new branch to develop a new feature](#step-1-creating-a-new-branch-to-develop-a-new-feature) of [Part 2](#part-2), a new branch called `fix-email-field` should be created
+
+#### Step 8: Implementing a new rule for validation of the new feature in the Employee class
+- A new rule in the constructor of [Employee object](tut-react-and-spring-data-rest/basic/src/main/java/com/greglturnquist/payroll/Employee.java) should be added (`!email.contains("@")`). This modification needs to be tested in the unit tests, for instance:
+    ```java
+       @Test
+        void newEmployeeWithInvalidEmailFormat() {
+           String firstName = "Frodo";
+           String lastName = "Baggins";
+           String description = "Ring Bearer";
+           int jobYears = 2;
+           String email = "frodo.gmail.com";
+           assertThrows(InstantiationException.class, () -> new Employee(firstName, lastName, description, jobYears, email));
+       }
+    ```
+
+#### Step 9: Debug the server and client parts of the solution
+- Following the same instructions described in the [Step 5: Debug the server and client parts of the solution](#step-5-debug-the-server-and-client-parts-of-the-solution) of [Part 2](#part-2), a debug of the server and client parts of the solution should be made to guarantee data consistency
+
+#### Step 10: Merge the created branch along with the master branch
+- Following the same instructions described in the [Step 6: Merge the created branch along with the master branch](#step-6-merge-the-created-branch-along-with-the-master-branch) of [Part 2](#part-2), a merge of the branch `fix-email-field` should be merge in the master branch
 
 ## Analysis of the Alternative Solution
 An alternative solution for version control that is not based on Git Hub is Mercurial.
