@@ -25,12 +25,15 @@
 
 ## Overview
 
-This Class Assignment consisted in integrating a new feature into an existing React.js and Spring Data REST Application
-along with the use of Git commands.
-The first part of this exercise involves adding a new field to record the years of an employee in the company,
-implementing support for the new field,
-adding unit tests, and ensuring functionality across server and client parts of the solution. This former task should be
-done in the master branch.
+This report outlines a class assignment focused on enhancing an existing React.js and Spring Data REST Application
+by integrating new features using version control provided by GitHub.
+The assignment unfolds in two parts: firstly, adding a new field to record the years of an employee in the company,
+including support implementation, unit tests, and ensuring functionality across server and client parts of the solution 
+directly in the master branch.
+The second part of this exercise also involves introducing a new feature to the employee entity, utilizing branching strategies
+for all the steps of the development before merging into the master branch.
+The report provides insights into the process, challenges, solutions encountered, and presents an alternative solution for the version control.
+
 
 ## Analysis, Design and Implementation
 
