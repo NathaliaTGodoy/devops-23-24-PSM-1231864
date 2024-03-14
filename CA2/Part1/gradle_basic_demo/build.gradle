@@ -9,6 +9,8 @@
 plugins {
     // Apply the application plugin to add support for building a Java application
     id 'application'
+    //Add Java plugin for test support
+    id 'java'
 }
 
 
@@ -25,6 +27,8 @@ dependencies {
     // Use Apache Log4J for logging
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
+    implementation 'org.testng:testng:7.1.0'
+    implementation 'junit:junit:4.12'
 }
  
 
@@ -64,5 +68,25 @@ task runClient(type:JavaExec, dependsOn: classes){
     mainClass = 'basic_demo.ChatClientApp'
 
     args 'localhost', '59001'
+}
+
+// Define a test task using the 'test' task type provided by the Java plugin
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+// Define a task to execute the unit test
+task executeTest(type: Test) {
+    group = "DevOps"
+    description = "Execute the unit test"
+    dependsOn test // Ensure test task runs before this one
+
+    // Include your test classes in the execution
+    testClassesDirs = sourceSets.test.output.classesDirs
+
+    // Include necessary runtime dependencies for the test
+    classpath = sourceSets.test.runtimeClasspath
 }
 
