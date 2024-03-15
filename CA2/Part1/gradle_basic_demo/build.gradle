@@ -90,3 +90,18 @@ task executeTest(type: Test) {
     classpath = sourceSets.test.runtimeClasspath
 }
 
+task backupSources(type: Copy) {
+    group = 'Backup'
+    description = 'Make a backup of the application sources'
+
+    // Define the source directory
+    def sourceDir = file('src')
+
+    // Define the destination directory for the backup
+    def backupDir = file("${buildDir}/backup/src")
+
+    // Set the source and destination directories for the copy operation
+    from sourceDir
+    into backupDir
+}
+
