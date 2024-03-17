@@ -30,7 +30,7 @@ dependencies {
     implementation 'org.testng:testng:7.1.0'
     implementation 'junit:junit:4.12'
 }
- 
+
 
 // Define the main class for the application
 mainClassName = 'basic_demo.App'
@@ -44,12 +44,12 @@ jar {
         attributes "Main-Class": "basic_demo.App"
     }
 
-   from {
+    from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
-task runServer(type:JavaExec, dependsOn: classes){
+task runServer(type: JavaExec, dependsOn: classes) {
     group = "DevOps"
     description = "Launches a chat server on localhost:59001"
 
@@ -59,10 +59,10 @@ task runServer(type:JavaExec, dependsOn: classes){
     args '59001'
 }
 
-task runClient(type:JavaExec, dependsOn: classes){
+task runClient(type: JavaExec, dependsOn: classes) {
     group = "DevOps"
     description = "Launches a chat client that connects to a server on localhost:59001 "
-  
+
     classpath = sourceSets.main.runtimeClasspath
 
     mainClass = 'basic_demo.ChatClientApp'
@@ -103,5 +103,23 @@ task backupSources(type: Copy) {
     // Set the source and destination directories for the copy operation
     from sourceDir
     into backupDir
+}
+
+task zipSources(type: Zip) {
+    group = 'Archive'
+    description = 'Creates a zip archive of the application sources'
+
+    // Define the source directory
+    def sourceDir = file('src')
+
+    // Define the destination zip file
+    def zipFile = file("${buildDir}/archives/sources.zip")
+
+    // Set the source directory for the zip task
+    from sourceDir
+
+    // Set the destination zip file
+    archiveFileName = zipFile.name
+    destinationDirectory = zipFile.parentFile
 }
 
