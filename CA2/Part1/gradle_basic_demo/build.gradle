@@ -69,13 +69,6 @@ task runClient(type: JavaExec, dependsOn: classes) {
     args 'localhost', '59001'
 }
 
-// Define a test task using the 'test' task type provided by the Java plugin
-test {
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
-
 task backupSources(type: Copy) {
     group = 'Backup'
     description = 'Make a backup of the application sources'
@@ -87,8 +80,7 @@ task backupSources(type: Copy) {
     def backupDir = file("${buildDir}/backup/src")
 
     // Set the source and destination directories for the copy operation
-    from sourceDir
-    into backupDir
+    from sourceDir into backupDir
 }
 
 task zipSources(type: Zip) {
