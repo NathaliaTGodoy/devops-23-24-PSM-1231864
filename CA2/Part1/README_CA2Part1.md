@@ -10,9 +10,10 @@
     - [Step 4: Add a unit test and update gradle to execute the test](#step-4-add-a-unit-test-and-update-the-gradle-to-execute-the-test)
     - [Step 5: Add a new task of type Copy as a backup purpose](#step-5-add-a-new-task-of-type-copy-as-a-backup-purpose)
     - [Step 6: Add a new task of type Zip as a archive purpose](#step-6-add-a-new-task-of-type-zip-as-a-archive-purpose)
+- [Conclusion](#conclusion)
 
 ## Overview
-The objective of Part 1 of this assignment is to familiarize ourselves with Gradle, a powerful build automation tool, 
+The objective of Part 1 of this assignment is to familiarize ourselves with [Gradle](https://gradle.org), a powerful build automation tool, 
 through a straightforward example application. In this section, we will outline the tasks involved in completing Part 1 
 and provide an overview of the steps required to accomplish them.
 
@@ -24,17 +25,17 @@ creating a dedicated folder for Part 1 of the assignment.
   1. `git clone https://bitbucket.org/pssmatos/gradle_basic_demo/.`
   2. `git rm -rf .git`
   3. `git add gradle_basic_demo`
-  4. `git commit -m "Message of commiting"`
+  4. `git commit -m "Message of committing"`
   5. `git push`
 
 ### Step 2: Read the instructions and experiment
 - Take the time to review the instructions detailed in the `README.md` file included with the example application. Experiment with the functionalities 
 of the application to gain a deeper understanding of its structure and purpose.
 - Try to use the following commands:
-  1. To build a .jar file with the application: `% ./gradlew build`
-  2. Open a terminal and execute the following command from the project's root directory: `% java -cp build/libs/basic_demo-0.1.0.jar basic_demo.ChatServerApp <server port>`.
+  1. To build a .jar file with the application: `./gradlew build`
+  2. Open a terminal and execute the following command from the project's root directory: `java -cp build/libs/basic_demo-0.1.0.jar basic_demo.ChatServerApp <server port>`.
      Substitute <server port> by a valid por number, e.g. 59001.
-  3. Open another terminal and execute the following gradle task from the project's root directory: `% ./gradlew runClient`
+  3. Open another terminal and execute the following gradle task from the project's root directory: `./gradlew runClient`
      The above task assumes the chat server's IP is "localhost" and its port is "59001". If you wish to use other parameters please edit the runClient task in the "build.gradle" file in the project's root directory.
      To run several clients, you just need to open more terminals and repeat the invocation of the runClient gradle task
 
@@ -52,7 +53,7 @@ of the application to gain a deeper understanding of its structure and purpose.
      args '59001'
      }
   ```
-  2. To execute the task implemented in item 1 use the command `% ./gradlew runServer`
+  2. To execute the task implemented in item 1 use the command `./gradlew runServer`
 
 ### Step 4: Add a unit test and update the gradle to execute the test
 - Enhance the reliability of the application by introducing a simple unit test. Update the Gradle script to enable the execution of this test, ensuring
@@ -76,7 +77,7 @@ of the application to gain a deeper understanding of its structure and purpose.
       from sourceDir into backupDir
      }
   ```
-  2. To execute the task implemented in item 1 use the command `% ./gradlew backupSources`
+  2. To execute the task implemented in item 1 use the command `./gradlew backupSources`
 
 ### Step 6: Add a new task of type Zip as a archive purpose.
 - Further enhance the manageability and portability of the application by implementing a task of type Zip. This task will package the contents of the src
@@ -93,6 +94,15 @@ of the application to gain a deeper understanding of its structure and purpose.
       destinationDirectory = zipFile.parentFile
      }
   ```
-  2. To execute the task implemented in item 1 use the command `% ./gradlew zipSources`
+  2. To execute the task implemented in item 1 use the command `./gradlew zipSources`
 
-- Conclude Part 1 of the assignment by marking the repository with the tag ca2-part1, signifying the completion of the specified tasks within this phase of the project.
+## Conclusion
+In conclusion, Part 1 of the assignment introduced Gradle, a powerful build automation tool. We successfully implemented various tasks to enhance the example application's functionality, reliability, and manageability.
+Custom Gradle tasks were added to extend application capabilities, such as launching the server, implementing unit tests, and creating backup and archive functionalities for source code.
+Overall, this assignment reinforced our understanding of Gradle and equipped us with valuable skills for modern software development practices, laying a foundation for tackling more complex projects.
+
+
+
+
+
+
