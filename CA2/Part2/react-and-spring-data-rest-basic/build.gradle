@@ -34,3 +34,14 @@ frontend {
     cleanScript = 'run clean'
     checkScript = 'run check'
 }
+
+task copyJarToDist(type: Copy) {
+    //project jar is generated in build/libs directory
+    from 'build/libs/'
+    into 'dist'
+    //includes all files that ends with .jar
+    include '*.jar'
+}
+
+
+
