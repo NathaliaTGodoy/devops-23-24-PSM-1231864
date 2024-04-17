@@ -28,15 +28,16 @@ was necessary. This section outlines the tasks involved and provides an overview
 migrate to it, using the following commands:
   1. `git branch tut-basic-gradle`
   2. `git checkout tut-basic-gradle`
-- Generate a new gradle spring boot project using the [Spring Initializr](https://start.spring.io) with the following dependencies: Rest Repositories, Thymeleaf, JPA, H2;
+- Generate a new gradle spring boot project using the [Spring Initializr](https://start.spring.io) with the following dependencies to aligning the project with its requirements: 
+Rest Repositories, Thymeleaf, JPA, H2;
 - Extract the generated zip file inside the folder 'CA2/Part2/' of the repository, which will result in an empty Spring application that can be built using gradle;
 - Check the available gradle tasks by executing `./gradlew tasks`.
 
 ### Step 2: Modify the Gradle Spring Boot project
-- Delete the original **src** folder in your IntelliJ repository;
-- Copy the **src** folder and all its subfolders from the basic folder of the tutorial (Class Assignment 1 Part 1) into this new folder;
+- Delete the original 'src' folder in your IntelliJ repository;
+- Copy the 'src' folder and all its subfolders from the basic folder of the tutorial (Class Assignment 1 Part 1) into this new folder;
 - Copy [webpack.config.js](react-and-spring-data-rest-basic/webpack.config.js) and [package.json](react-and-spring-data-rest-basic%2Fpackage.json) files from Class Assignment 1 Part 1 to this new folder;
-- Delete the **src/main/resources/static/built/** folder to avoid conflicts with Gradle's build process;
+- Delete the 'src/main/resources/static/built/' folder to avoid conflicts with Gradle's build process;
 - Change the imports of [Employee class](react-and-spring-data-rest-basic/src/main/java/com/greglturnquist/payroll/Employee.java) from *javax* to *jakarta*, as following:
    ```java
      import jakarta.persistence.Entity;
@@ -116,18 +117,21 @@ In considering an alternative solution for build automation, we evaluated [Apach
 2. Usability:
   - Gradle: Gradle provides a user-friendly DSL (Domain Specific Language) for defining build scripts, making it relatively easy to understand and use.
   - Apache Ant: Apache Ant uses XML-based build files, which may be less intuitive for some developers compared to Gradle's DSL.
+3. Dependency management:
+  - Gradle: Gradle excels in managing project dependencies, offering robust tools for handling libraries and dependencies within the build process.
+  - Apache Ant: Apache Ant does not have native dependency management. This can be achieved through external tools, adding complexity to the build process.
 
 ### Implementation of ANT as an alternative solution
 #### Step 1 - Alternative: Start a new Apache Ant project
 - Create a new branch called 'tut-basic-ant' in the repository to work on the alternative solution. After creating the branch, switch to it. Follow the same commands described in
 [Step 1: Start a new Gradle Spring Boot project](#step-1-start-a-new-gradle-spring-boot-project) to complete this task;
-- Set up a new Apache Ant project structure. You can create a new directory for this new project;
+- Set up a new Apache Ant project structure. You can create a new directory for this project;
 - Apache Ant does not have built-in dependency management like Gradle or Maven. Therefore, manually download the necessary dependencies for your project, such as Spring Boot libraries, 
-and place them in the appropriate directories within your Ant project structure.
+and place them in the appropriate directories within your Ant project structure. You could also use external tools such as Apache Ivy to manage dependencies.
 
 #### Step 2 - Alternative: Modify the Apache Ant project
 - Follow the same tasks described in [Step 2: Modify the Gradle Spring Boot project](#step-2-modify-the-gradle-spring-boot-project) to prepare the Ant directory 
-and make sure to adjust the configuration to ensure compatibility with Apache Ant. Unlike Gradle, which uses a build.gradle file, Apache Ant relies on a 'build.xml' 
+and make sure to adjust the configuration to ensure compatibility with Apache Ant. Unlike Gradle, which uses a 'build.gradle' file, Apache Ant relies on a 'build.xml' 
 file for configuration and task definitions.
 
 #### Step 3 - Alternative: Define Ant build.xml file
@@ -154,7 +158,7 @@ for compilation, `delete` for cleaning up files, and any other tasks required fo
 #### Step 4 - Alternative: Execute Ant build
 - Run the Ant build using the command `ant` in the terminal from the root directory of the project. Ant will automatically look for the build.xml file in the 
 current directory and execute the default target defined within it;
-- Experiment with running specific tasks described in [Step 3: Define And build.xml file](#step-3-define-ant-buildxml-file) using the following commands:
+- Experiment with running specific tasks described in [Step 3: Define Ant build.xml file](#step-3---alternative-define-ant-buildxml-file) using the following commands:
   1. `ant copyJarToDist`
   2. `ant cleanWebpackFiles`
 - Finally, commit the code and merge into the master branch using the commands described in [Step 4: Develop new tasks to copy and delete files using Gradle](#step-4-develop-new-tasks-to-copy-and-delete-files-using-gradle)
@@ -163,10 +167,11 @@ current directory and execute the default target defined within it;
 In conclusion, Part 2 of the assignment involved converting the basic Tutorial application to use Gradle instead of Maven. 
 This included setting up a new Gradle Spring Boot project, configuring the Gradle plugin for managing frontend code, 
 and developing tasks to copy the generated JAR to a 'dist' folder and delete webpack-generated files. These steps ensured 
-efficient project management and build processes using Gradle. Finally, when comparing the Apache Ant as an alternative solution
-to Gradle, it was verified that while Gradle offers a more modern and user-friendly DSL, Apache Ant provides flexibility and 
-extensibility through its XML-based build files. 
-
+efficient project management and build processes using Gradle. 
+Finally, when comparing Apache Ant as an alternative solution to Gradle, it was verified that while Gradle offers a 
+more modern and user-friendly DSL, Apache Ant provides flexibility and extensibility through its XML-based build files.
+However, due to Apache Ant's lack of dependency management capabilities, it requires external tools such as Apache Ivy. 
+Consequently, adding a plugin to manage frontend and completing the assignment was not feasible with Ant.
 
 
 
