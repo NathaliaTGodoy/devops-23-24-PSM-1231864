@@ -9,18 +9,19 @@
     - [Step 3: Try to build and execute Spring Boot Tutorial using Maven](#step-3-try-to-build-and-execute-spring-boot-tutorial-using-maven-ca1)
     - [Step 4: Try to build and execute Spring Boot using Gradle](#step-4-try-to-build-and-execute-spring-boot-using-gradle-ca2part2)
     - [Step 5: Try to build and execute the Gradle Basic Demo project](#step-5-try-to-build-and-execute-the-gradlebasicdemo-project-ca2part1)
+- [Issues](#issues)
 - [Conclusion](#conclusion)
 
 ## Overview
-The objective of Part 1 of this assignment is to practice with UTM (VirtualBox in case of not having Apple with arm64),
+The objective of Part 1 of this assignment was to practice with UTM (VirtualBox in case of not having Apple with arm64),
 using the same projects from the previous assignments but now inside a UTM/VirtualBox Virtual Machine (VM) with Linux (Ubuntu).
 
 ## Description of the Requirements Implementation
 
 ### Step 1: Creating a VM and configure it
 - For this step, a hypervisor that runs in many host operating systems is needed. In this case we will use UTM to create
-a VM and install Linux on the new VM. However you can follow similar steps for VirtualBox
-- Create a VM with the following settings and establish a SSH protocol
+a VM and install Linux on the new VM. However, you can follow similar steps for VirtualBox
+- Create a VM with the following settings and establish an SSH protocol
   1. Connect image (ISO) with the [Ubuntu 18.04 minimal installation media] (https: //help.ubuntu.com/community/ Installation/MinimalCD)
   2. The VM needs 2048 MB RAM
   3. For UTM the Network mode should be Shared Network
@@ -32,11 +33,11 @@ a VM and install Linux on the new VM. However you can follow similar steps for V
      * Check the IP address range of this network. In this case it is 192.168.56.1/24.
      * Select an IP in this range for the second adapter of our VM.
   5. Start the VM and install Ubuntu
-  6. After starting the VM it is need to update the packages repositories using the following commands:
+  6. After starting the VM it is needed to update the packages repositories using the following commands:
      * `sudo apt install net-tools`
-     * `sudo nano /etc/netplan/01-netcfg.yaml` - To edit the network configuration file to setup the IP
+     * `sudo nano /etc/netplan/01-netcfg.yaml` - To edit the network configuration file to set up the IP
      * `sudo netplan apply`
-  7. Establish a SSH connection using the following commands:
+  7. Establish an SSH connection using the following commands:
      * `sudo apt install openssh-server` -  To install openssh-server so that we can use ssh to open secure terminal 
        sessions to the VM (from other hosts)
      * `sudo nano /etc/ssh/sshd_config` - To enable password authentication for ssh uncomment the line 
@@ -46,7 +47,7 @@ a VM and install Linux on the new VM. However you can follow similar steps for V
      * `sudo nano /etc/vsftpd.conf` - To enable write access for vsftpd uncomment the line write_enable=YES sudo service 
        vsftpd restart
   8. Now that the SSH server is enabled in the VM we can now use ssh to connect to the VM. In the host, in a terminal/console, type:
-      `ssh <name>@<IP>`, where the name should be replaced by the user name of the VM and the IP should be replaced by the IP of the VM
+      `ssh <name>@<IP>`, where the name should be replaced by the username of the VM and the IP should be replaced by the IP of the VM
        (192.168.56.1 if you are using VirtualBox and followed the item 4)
   9. Install Git and Java using the following commands:
   ```bash
@@ -117,11 +118,20 @@ a VM and install Linux on the new VM. However you can follow similar steps for V
   ```
 - The client needs to run in the host and not inside the VM. This is due to the lack of a graphical interface in the VM.
 
+## Issues
+- Dependency: The main issues encountered when completing all tasks of this CA were mainly due to incompatible dependency versions. 
+When attempting to follow the tasks in Step 4, Java needed to be version 17, Ubuntu 20, and Gradle 8.6. 
+If these dependencies were not properly configured, an exception was thrown, and the build was unsuccessful.
+- Permission: Another possible error related to permissions might occur when attempting to execute the Maven and Gradle 
+Wrapper, which can be rectified by granting execution permission using the commands `chmod +x mvnw` and `chmod +x gradlew`.
+- Network Configuration: When using UTM, it was not possible to configure a specific IP for the VM. Therefore, to establish 
+an SSH connection, it was necessary to first check the VMs IP using the `ip addr` or `ifconfig` commands.
+
 ## Conclusion
-In an overall, this assignment focused on practical tasks involving the setup and utilization of a Virtual Machine (VM) 
-with Ubuntu Linux using as hypervisors UTM or VirtualBox. Key steps included VM creation, configuration, SSH setup, 
-and software installations such as Git and Java. The main goal that was build and run Java projects using Maven and Gradle 
-within the Linux environment was achieved. The assignment provided a foundational understanding of VM deployment, 
+On the whole, this assignment focused on practical tasks involving the setup and utilization of a Virtual Machine (VM) 
+with Ubuntu Linux, using hypervisors such as UTM or VirtualBox. Key steps included VM creation, configuration, SSH setup, 
+and installing the necessary dependencies. The primary objective of building and running Java projects using Maven and 
+Gradle within the Linux environment was successfully achieved. The assignment provided an understanding of VM deployment, 
 Linux administration, and Java project management.
 
 
