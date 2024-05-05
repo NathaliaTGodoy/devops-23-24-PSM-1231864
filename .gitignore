@@ -202,3 +202,7 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
+
+### Vagrant ###
+.vagrant
+*.war
