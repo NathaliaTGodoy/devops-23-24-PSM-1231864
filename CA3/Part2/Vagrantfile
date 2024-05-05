@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get -y update
     sudo apt-get install -y iputils-ping avahi-daemon libnss-mdns unzip \
-         openjdk-11-jdk-headless
+         openjdk-17-jdk-headless
     # ifconfig
   SHELL
 
@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
     end
 
     # We want to access H2 console from the host using port 8082
-    # We want to connet to the H2 server using port 9092
+    # We want to connect to the H2 server using port 9092
     db.vm.network "forwarded_port", guest: 8082, host: 8082
     db.vm.network "forwarded_port", guest: 9092, host: 9092
 
@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
     SHELL
 
     # The following provision shell will run ALWAYS so that we can execute the H2 server process
-    # This could be done in a different way, for instance, setiing H2 as as service, like in the following link:
+    # This could be done in a different way, for instance, setting H2 as as service, like in the following link:
     # How to setup java as a service in ubuntu: http://www.jcgonzalez.com/ubuntu-16-java-service-wrapper-example
     #
     # To connect to H2 use: jdbc:h2:tcp://192.168.33.11:9092/./jpadb
@@ -85,12 +85,13 @@ Vagrant.configure("2") do |config|
       # uncomment tomcat-users and add manager-gui to tomcat user
 
       # Change the following command to clone your own repository!
-      git clone https://bitbucket.org/pssmatos/tut-basic-gradle.git
-      cd tut-basic-gradle
+      git clone https://github.com/NathaliaTGodoy/devops-23-24-PSM-1231864.git
+      cd devops-23-24-PSM-1231864/CA2/Part2/react-and-spring-data-rest-basic
       chmod u+x gradlew
       ./gradlew clean build
+      nohup ./gradlew bootRun > /home/vagrant/spring-boot-app.log 2>&1 &
       # To deploy the war file to tomcat9 do the following command:
-      sudo cp ./build/libs/basic-0.0.1-SNAPSHOT.war /var/lib/tomcat9/webapps
+      # sudo cp ./build/libs/basic-0.0.1-SNAPSHOT.war /var/lib/tomcat9/webapps
     SHELL
 
   end
