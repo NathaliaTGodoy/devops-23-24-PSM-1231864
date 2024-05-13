@@ -14,8 +14,9 @@ class App extends React.Component { // <1>
         this.state = {employees: []};
     }
 
+    //the correct path needs to be specified in the GET command.
     componentDidMount() { // <2>
-        client({method: 'GET', path: '/api/employees'}).done(response => {
+        client({method: 'GET', path: '/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT/api/employees'}).done(response => {
             this.setState({employees: response.entity._embedded.employees});
         });
     }
