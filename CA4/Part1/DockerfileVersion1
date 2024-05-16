@@ -1,0 +1,17 @@
+# Use the official OpenJDK image with Java 21
+FROM gradle:jdk11 as builder
+
+LABEL authors="nathaliagodoy"
+
+# Copy the project files to the container
+COPY CA2/Part1/gradle_basic_demo /app/gradle_basic_demo
+
+# Change to the project directory
+WORKDIR /app/gradle_basic_demo
+
+# Build the project using Gradle
+RUN chmod u+x ./gradlew
+RUN ./gradlew build
+
+# Define the command to run the application
+CMD ["./gradlew", "runServer"]
