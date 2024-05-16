@@ -1,0 +1,9 @@
+# Use the official OpenJDK image with Java 21
+FROM openjdk:21-jdk-slim
+
+LABEL authors="nathaliagodoy"
+
+# Copy the JAR file into the container at /app
+COPY /CA2/Part1/gradle_basic_demo/build/libs/basic_demo-0.1.0.jar /app/basic_demo-0.1.0.jar
+
+ENTRYPOINT ["java", "-cp", "/app/basic_demo-0.1.0.jar", "basic_demo.ChatServerApp", "59001"]
