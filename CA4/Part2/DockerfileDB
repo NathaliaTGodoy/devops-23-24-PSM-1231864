@@ -1,0 +1,18 @@
+FROM openjdk:17-jdk-slim
+
+LABEL authors="nathaliagodoy"
+
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk-headless wget unzip
+
+RUN mkdir -p /usr/src/app
+
+WORKDIR /usr/src/app/
+
+# Download H2 Database and run it
+RUN wget https://repo1.maven.org/maven2/com/h2database/h2/1.4.200/h2-1.4.200.jar -O /opt/h2.jar
+
+EXPOSE 8082 9092
+
+# Start H2 Server
+CMD ["java", "-cp", "/opt/h2.jar", "org.h2.tools.Server", "-web", "-webAllowOthers", "-tcp", "-tcpAllowOthers", "-ifNotExists"]
