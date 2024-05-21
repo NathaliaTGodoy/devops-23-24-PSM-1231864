@@ -95,7 +95,7 @@ docker push chat-server:ca4-part1-v1
 #### 2. Build the Docker image
 - In your root, run the following command to build the Docker image:
 ```bash
-    docker build -t chat-server:ca4-part1-v2 -f CA4/Part1/DockerfileVersion2 .
+    docker build -t chat-server -f CA4/Part1/DockerfileVersion2 .
 ```
 
 #### 3. Tag and Publish the Image on Docker Hub
