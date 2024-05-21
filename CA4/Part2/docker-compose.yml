@@ -1,0 +1,31 @@
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: DockerfileDB
+    ports:
+      - "8082:8082"
+      - "9092:9092"
+    networks:
+      default:
+        ipv4_address: 192.168.56.11
+
+  web:
+    build:
+      context: .
+      dockerfile: DockerfileWeb
+    ports:
+      - "8080:8080"
+    networks:
+      default:
+        ipv4_address: 192.168.56.10
+    depends_on:
+      - "db"
+
+networks:
+  default:
+    ipam:
+      driver: bridge
+      config:
+        - subnet: 192.168.56.0/24
