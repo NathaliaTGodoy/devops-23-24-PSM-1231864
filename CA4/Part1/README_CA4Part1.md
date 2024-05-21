@@ -5,8 +5,11 @@
 - [Overview](#overview)
 - [Description of the Requirements Implementation](#description-of-the-requirements-implementation)
     - [Setting up the environment](#setting-up-the-environment) 
+    - [Description of the tasks](#description-of-the-tasks)
     - [Version 1: Building the Chat Server inside the Dockerfile](#version-1-building-the-chat-server-inside-the-dockerfile)
     - [Version 2: Building the Chat Server with a generated jar](#version-2-building-the-chat-server-with-a-generated-jar)
+    - [Testing the chat application](#testing-the-chat-application)
+- [Issues](#issues)
 - [Conclusion](#conclusion)
 
 ## Overview
@@ -109,12 +112,23 @@ docker push chat-server:ca4-part1-v2
     docker run --name chat-version2 chat-server:ca4-part1-v2 
 ```
 
+### Testing the Chat Application
+- After starting the Docker container, you can test the chat application by connecting to the chat server within the 
+container using a chat client on your host machine. 
+- Use the following command to connect the chat client to the server and verify that the chat application is working as expected.
+```bash
+    java -cp "CA2\Part1\gradle_basic_demo\build\libs\basic_demo-0.1.0.jar" basic_demo.ChatClientApp localhost 59001
+```
+
+## Issues
+To successfully execute the first version of this CA, it was essential to use Java JDK version 11. Using any other 
+version would result in a build failure.
+
 ## Conclusion
 In this assignment, we practiced using Docker to containerize a chat server application. We created two versions of the 
 Docker image: one building the server inside the Dockerfile and one using a pre-built JAR file. We tagged and published 
 the images on Docker Hub, demonstrating the benefits of Docker in simplifying deployment and ensuring consistency across 
 environments.
-
 
 
 
