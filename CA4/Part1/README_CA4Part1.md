@@ -59,20 +59,13 @@ into the directory of this assignment.
 ```
 
 #### 2. Build the Docker image
-- In your root, run the following command to build the Docker image:
+- In your root, run the following command to build the Docker image. Note that this step includes tagging the image with 
+the identifier specified after the colon.
 ```bash
-    docker build -t chat-server -f CA4/Part1/DockerfileVersion1 .
+    docker build -t chat-server:ca4-part1-v1 -f CA4/Part1/DockerfileVersion1 .
 ```
 
-#### 3. Tag and Publish the Image on Docker Hub
-- Tag and push the image to Docker Hub:
-
-```bash
-docker tag chat-server chat-server:ca4-part1-v1
-docker push chat-server:ca4-part1-v1
-```
-
-#### 4. Run the Docker Container
+#### 3. Run the Docker Container
 - Run the container from the created image to ensure everything is working correctly:
 ```bash
     docker run --name chat-version1 chat-server:ca4-part1-v1 
@@ -93,20 +86,13 @@ docker push chat-server:ca4-part1-v1
 ```
 
 #### 2. Build the Docker image
-- In your root, run the following command to build the Docker image:
+- In your root, run the following command to build the Docker image. Note that this step includes tagging the image with
+the identifier specified after the colon.
 ```bash
-    docker build -t chat-server -f CA4/Part1/DockerfileVersion2 .
+    docker build -t chat-server:ca4-part1-v2 -f CA4/Part1/DockerfileVersion2 .
 ```
 
-#### 3. Tag and Publish the Image on Docker Hub
-- Tag and push the image to Docker Hub:
-
-```bash
-docker tag chat-server chat-server:ca4-part1-v2
-docker push chat-server:ca4-part1-v2
-```
-
-#### 4. Run the Docker Container
+#### 3. Run the Docker Container
 - Run the container from the created image to ensure everything is working correctly:
 ```bash
     docker run --name chat-version2 chat-server:ca4-part1-v2 
