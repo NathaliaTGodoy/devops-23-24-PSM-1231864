@@ -19,10 +19,8 @@ Specifically, using the chat application from CA2-Part1, packaging the chat serv
 ## Description of the Requirements Implementation
 ### Setting up the environment
 - For this assignment, first it is necessary to install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
-- You could log in to your Docker Hub account using the following command:
-```bash
-    docker login
-```
+- To push the created image to your Docker Hub account first you need to sign in to your account. You can associate the
+Docker Hub  with your Git Hub account.
 
 ### Description of the Tasks
 - To complete this assignment, you need to:
@@ -58,14 +56,21 @@ into the directory of this assignment.
     CMD ["./gradlew", "runServer"]
 ```
 
-#### 2. Build the Docker image
+#### 2. Create the Docker image
 - In your root, run the following command to build the Docker image. Note that this step includes tagging the image with 
 the identifier specified after the colon.
 ```bash
     docker build -t chat-server:ca4-part1-v1 -f CA4/Part1/DockerfileVersion1 .
 ```
 
-#### 3. Run the Docker Container
+#### 3. Tag and Publish the Image on Docker Hub
+- Tag and push the image to Docker Hub:
+ ```bash
+    docker tag chat-server:ca4-part1-v1 nathaliatgodoy/chat-server:ca4-part1-v1
+    docker push nathaliatgodoy/chat-server:ca4-part1-v1
+ ```
+
+#### 4. Run the Docker Container
 - Run the container from the created image to ensure everything is working correctly:
 ```bash
     docker run --name chat-version1 chat-server:ca4-part1-v1 
@@ -91,8 +96,14 @@ the identifier specified after the colon.
 ```bash
     docker build -t chat-server:ca4-part1-v2 -f CA4/Part1/DockerfileVersion2 .
 ```
+#### 3. Tag and Publish the Image on Docker Hub
+- Tag and push the image to Docker Hub:
+ ```bash
+    docker tag chat-server:ca4-part1-v2 nathaliatgodoy/chat-server:ca4-part1-v2
+    docker push nathaliatgodoy/chat-server:ca4-part1-v2
+ ```
 
-#### 3. Run the Docker Container
+#### 4. Run the Docker Container
 - Run the container from the created image to ensure everything is working correctly:
 ```bash
     docker run --name chat-version2 chat-server:ca4-part1-v2 
