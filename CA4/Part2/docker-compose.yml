@@ -24,12 +24,12 @@ services:
     depends_on:
       - "db"
 
+volumes:
+  db_data:
+
 networks:
   default:
     ipam:
-      driver: bridge
+      driver: default
       config:
         - subnet: 192.168.56.0/24
-
-volumes:
-  db_data:
