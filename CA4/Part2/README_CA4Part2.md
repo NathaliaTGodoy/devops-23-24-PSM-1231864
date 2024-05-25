@@ -12,7 +12,6 @@
   - [Step 4: Test the solution](#step-4-test-the-solution)
   - [Step 5: Publish the images db and web](#step-5-publish-the-images-db-and-web)
   - [Step 6: Use a volume with the db container](#step-6-use-a-volume-with-the-db-container)
-- [Issues](#issues)
 - [Conclusion](#conclusion)
 
 ## Overview
@@ -186,18 +185,6 @@ volumes:
 stores the database data to a designated folder (/usr/src/app/data) on your computer. Other containers can also use this 
 volume to access the data.
 - Test again the application by using the steps described in [Step 5](#step-5-publish-the-images-db-and-web).
-
-## Issues
-- An encountered issue was related to the networks setting. The containers were well created and running. However, when
-the containers were deleted and the command `docker-compose up --build` was executed, the following error message appeared:
-"Error response from daemon: plugin "bridge" not found". To resolve this problem, the "bridge" definition in docker-compose
-networks needed to be replaced by "default".
-- Another conflict of Ports were faced. To resolve this conflict, it was necessary to use the following commands, where
-the PID needs to be replaced by the actual process ID.
- ```bash
-    sudo lsof -i :8080
-    sudo kill -9 <PID>
- ```
 
 ## Conclusion
 In this assignment, we containerized a Spring application and an H2 database using Docker. We created Dockerfiles for 

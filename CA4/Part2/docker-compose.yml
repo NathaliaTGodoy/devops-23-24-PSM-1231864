@@ -7,7 +7,7 @@ services:
       - "8082:8082"
       - "9092:9092"
     networks:
-      default:
+      app_network:
         ipv4_address: 192.168.56.11
     volumes:
       - db_data:/usr/src/app/data
@@ -19,7 +19,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      default:
+      app_network:
         ipv4_address: 192.168.56.10
     depends_on:
       - "db"
@@ -28,8 +28,8 @@ volumes:
   db_data:
 
 networks:
-  default:
+  app_network:
+    driver: bridge
     ipam:
-      driver: default
       config:
         - subnet: 192.168.56.0/24
