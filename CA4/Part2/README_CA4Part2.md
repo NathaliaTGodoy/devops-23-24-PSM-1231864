@@ -12,6 +12,7 @@
   - [Step 4: Test the solution](#step-4-test-the-solution)
   - [Step 5: Publish the images db and web](#step-5-publish-the-images-db-and-web)
   - [Step 6: Use a volume with the db container](#step-6-use-a-volume-with-the-db-container)
+- [Alternative Solution: Kubernetes](#alternative-solution-kubernetes)
 - [Conclusion](#conclusion)
 
 ## Overview
@@ -153,10 +154,12 @@ services:
       - "8082:8082"
       - "9092:9092"
     networks:
-      default:
+      app_network:
         ipv4_address: 192.168.56.11
     volumes:
-      - db_data:/usr/src/app/data
+      - type: volume
+        source: db_data
+        target: /root
 
   web:
     build:
@@ -165,26 +168,38 @@ services:
     ports:
       - "8080:8080"
     networks:
-      default:
+      app_network:
         ipv4_address: 192.168.56.10
     depends_on:
       - "db"
 
-networks:
-  default:
-    ipam:
-      driver: bridge
-      config:
-        - subnet: 192.168.56.0/24
-
 volumes:
   db_data:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.56.0/24
 ```
 
 - Using volumes in Docker Compose allows data to persist even if the container is deleted. It duplicates the file that 
-stores the database data to a designated folder (/usr/src/app/data) on your computer. Other containers can also use this 
-volume to access the data.
+stores the database data to a designated folder on your computer. Other containers can also use this volume to access 
+the data.
 - Test again the application by using the steps described in [Step 5](#step-5-publish-the-images-db-and-web).
+
+## Alternative Solution: Kubernetes
+Kubernetes is a robust container orchestration system ideal for large-scale applications, providing features beyond 
+Docker Compose. It offers load balancing to distribute traffic across containers, dynamic scaling to adjust container 
+numbers based on demand, and self-healing to automatically restart failed containers. Additionally, Kubernetes manages 
+storage, ensuring efficient use and mounting of volumes. It supports automated rollouts and rollbacks for smooth updates, 
+simplifies container communication, and securely handles sensitive information and configurations. Kubernetes also excels
+in job scheduling and batch processing.
+While Kubernetes introduces complexity, this is necessary for managing large applications with unpredictable traffic 
+and load. Its capabilities ensure high availability, efficient resource utilization, consistency, and flexibility, making 
+it essential for modern cloud-native development.
 
 ## Conclusion
 In this assignment, we containerized a Spring application and an H2 database using Docker. We created Dockerfiles for 

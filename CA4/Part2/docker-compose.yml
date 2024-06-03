@@ -10,7 +10,9 @@ services:
       app_network:
         ipv4_address: 192.168.56.11
     volumes:
-      - db_data:/usr/src/app/data
+      - type: volume
+        source: db_data
+        target: /root
 
   web:
     build:
@@ -26,6 +28,7 @@ services:
 
 volumes:
   db_data:
+    driver: local
 
 networks:
   app_network:
