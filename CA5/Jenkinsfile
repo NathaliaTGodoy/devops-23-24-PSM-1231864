@@ -1,40 +1,51 @@
 pipeline {
     agent any
 
+    environment {
+        GRADLE_HOME = "${env.WORKSPACE}/CA2/Part1/gradle_basic_demo"
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 echo 'Checking out...'
-                git 'https://github.com/NathaliaTGodoy/devops-23-24-PSM-1231864.git'
-                dir('CA2/Part1/gradle-basic-demo') {
-                    // Switch to the correct directory after checkout
-                }
+                git url: 'https://github.com/NathaliaTGodoy/devops-23-24-PSM-1231864.git'
             }
         }
+
         stage('Assemble') {
             steps {
                 echo 'Assembling...'
-                dir('CA2/Part1/gradle-basic-demo') {
+                dir("${GRADLE_HOME}") {
+                    sh 'chmod +x gradlew'
                     sh './gradlew assemble'
                 }
             }
         }
+
         stage('Test') {
             steps {
-                echo 'Testing...'
-                dir('CA2/Part1/gradle-basic-demo') {
+                echo 'Running tests...'
+                dir("${GRADLE_HOME}") {
                     sh './gradlew test'
                     junit 'build/test-results/test/*.xml'
                 }
             }
         }
+
         stage('Archive') {
             steps {
                 echo 'Archiving...'
-                dir('CA2/Part1/gradle-basic-demo') {
-                    archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+                dir("${GRADLE_HOME}") {
+                    archiveArtifacts artifacts: 'build/libs/*.jar', allowEmptyArchive: true
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
