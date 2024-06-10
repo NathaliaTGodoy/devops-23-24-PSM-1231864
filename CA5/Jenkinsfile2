@@ -37,8 +37,54 @@ pipeline {
                 }
             }
         }
-    }
 
+        stage('Javadoc') {
+            steps {
+                echo 'Generating Javadoc...'
+                dir("${GRADLE_HOME}") {
+                    sh './gradlew javadoc'
+                }
+            }
+            post {
+                success {
+                    publishHTML(target: [
+                        reportName: 'Javadoc',
+                        reportDir: 'build/docs/javadoc',
+                        reportFiles: 'index.html',
+                        keepAll: true,
+                        alwaysLinkToLastBuild: true,
+                        allowMissing: false
+                    ])
+                }
+            }
+        }
+
+        stage('Archive') {
+                steps {
+                    echo 'Archiving...'
+                    dir("${GRADLE_HOME}") {
+                        archiveArtifacts artifacts: 'build/libs/*.jar', allowEmptyArchive: true
+                    }
+                }
+            }
+
+        stage('Docker Image') {
+                        steps {
+                            script {
+                                dir("${GRADLE_HOME}") {
+                                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASS')]) {
+                                        def customImage = docker.build("nathaliatgodoy/devops:ca5")
+                                        docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                                            customImage.push()
+
+                                            //docker.build("my-image:${env.BUILD_ID}")
+                            }
+                        }
+                    }
+                }
+            }
+    }
+}
     post {
         always {
             cleanWs()
