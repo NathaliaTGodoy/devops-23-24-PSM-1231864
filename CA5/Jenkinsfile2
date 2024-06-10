@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    environment {
+        GRADLE_HOME = "${env.WORKSPACE}/CA2/Part2/react-and-spring-data-rest-basic"
+        JAVA_HOME = tool 'jdk-17' // Adjust the JDK tool name as per your Jenkins configuration
+    }
+
+    options {
+        skipDefaultCheckout() // Skip default checkout to manually configure git step
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out...'
+                git url: 'https://github.com/NathaliaTGodoy/devops-23-24-PSM-1231864.git'
+            }
+        }
+
+        stage('Assemble') {
+            steps {
+                echo 'Assembling...'
+                dir("${GRADLE_HOME}") {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew assemble'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                dir("${GRADLE_HOME}") {
+                    sh './gradlew test'
+                    junit 'build/test-results/test/*.xml'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
