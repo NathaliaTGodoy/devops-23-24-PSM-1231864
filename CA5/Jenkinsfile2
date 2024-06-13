@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         GRADLE_HOME = "${env.WORKSPACE}/CA2/Part2/react-and-spring-data-rest-basic"
-        JAVA_HOME = tool 'jdk-17' // Adjust the JDK tool name as per your Jenkins configuration
     }
 
     options {
