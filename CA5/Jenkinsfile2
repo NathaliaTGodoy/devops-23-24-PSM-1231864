@@ -5,10 +5,6 @@ pipeline {
         GRADLE_HOME = "${env.WORKSPACE}/CA2/Part2/react-and-spring-data-rest-basic"
     }
 
-    options {
-        skipDefaultCheckout() // Skip default checkout to manually configure git step
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -38,25 +34,21 @@ pipeline {
         }
 
         stage('Javadoc') {
-            steps {
-                echo 'Generating Javadoc...'
-                dir("${GRADLE_HOME}") {
-                    sh './gradlew javadoc'
+                    steps {
+                        echo 'Generating Javadocs...'
+                        dir("${GRADLE_HOME}") {
+                            sh './gradlew javadoc'
+                        }
+                        publishHTML(target: [
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: 'CA2/Part2/react-and-spring-data-rest-basic/build/docs/javadoc',
+                            reportFiles: 'index.html',
+                            reportName: 'Javadoc'
+                            ])
+                    }
                 }
-            }
-            post {
-                success {
-                    publishHTML(target: [
-                        reportName: 'Javadoc',
-                        reportDir: 'build/docs/javadoc',
-                        reportFiles: 'index.html',
-                        keepAll: true,
-                        alwaysLinkToLastBuild: true,
-                        allowMissing: false
-                    ])
-                }
-            }
-        }
 
         stage('Archive') {
                 steps {
@@ -68,25 +60,42 @@ pipeline {
             }
 
         stage('Docker Image') {
-                        steps {
+                    steps {
+                        echo 'Creating Dockerfile...'
                             script {
                                 dir("${GRADLE_HOME}") {
-                                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASS')]) {
-                                        def customImage = docker.build("nathaliatgodoy/devops:ca5")
-                                        docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                                            customImage.push()
+                                    def dockerfileContent = """
+                                    FROM tomcat:10-jdk17-openjdk-slim
+                                    COPY build/libs/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.war
+                                    EXPOSE 8080
+                                    CMD ["catalina.sh", "run"]
+                                    """
+                                    writeFile file: 'DockerfileCA2Part2', text: dockerfileContent
+                                }
+                            }
+                        }
+                    }
 
-                                            //docker.build("my-image:${env.BUILD_ID}")
+        stage('Publish Docker Image') {
+            steps {
+                echo 'Publishing Docker image...'
+                    script {
+                        dir("${GRADLE_HOME}") {
+                            def dockerImage = docker.build("nathaliatgodoy/devops:${env.BUILD_ID}", "-f DockerfileCA2Part2 .")
+                            docker.withRegistry('https://index.docker.io/v1/', 'docker_id') {
+                            dockerImage.push()
                             }
                         }
                     }
                 }
             }
-    }
-}
+        }
+
+
     post {
         always {
             cleanWs()
         }
     }
 }
+
