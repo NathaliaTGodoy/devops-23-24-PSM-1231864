@@ -81,7 +81,7 @@ pipeline {
                 echo 'Publishing Docker image...'
                     script {
                         dir("${GRADLE_HOME}") {
-                            def dockerImage = docker.build("nathaliatgodoy/devops:${env.BUILD_ID}", "-f DockerfileCA2Part2 .")
+                            def dockerImage = docker.build("nathaliatiyo/devops:${env.BUILD_ID}", "-f DockerfileCA2Part2 .")
                             docker.withRegistry('https://index.docker.io/v1/', 'docker_id') {
                             dockerImage.push()
                             }
@@ -90,7 +90,6 @@ pipeline {
                 }
             }
         }
-
 
     post {
         always {
